@@ -1,10 +1,13 @@
 <template>
-  <h1>Hello World</h1>
-  <Teleport to="#modal">
-    <div style="text-align:center; color: red">
-      <strong>Esse trecho de código foi transportado para fora da Div #app</strong>
-    </div>
-  </Teleport>
+  <div style="text-align: center">
+    <h1>{{ user.name}} {{ user.lastName }}</h1>
+    <button @click="setLastName">Set last name</button>
+    <Teleport to="#modal">
+      <div style="text-align:center; color: red">
+        <strong>Esse trecho de código foi transportado para fora da Div #app</strong>
+      </div>
+    </Teleport>
+  </div>
 </template>
 
 <script>
@@ -12,6 +15,16 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data: () => ({
+    user: {
+      name: 'Guilherme'
+    }
+  }),
+  methods: {
+    setLastName () {
+      this.user.lastName = 'Cazaroto'
+    }
   }
 }
 </script>
