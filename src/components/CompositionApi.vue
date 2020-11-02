@@ -1,36 +1,27 @@
 <template>
   <div style="text-align: center">
-    <h1>{{name}}</h1>
-    <button @click="handleClick">Clique aqui</button>
-
-    <ul>
-      <li
-        v-for="user in users"
-        v-bind:key="user.name"
+    <div v-if="loading">Carregando...</div>
+    <div v-else>
+      <div
+        v-for="user in data.users"
+        v-bind:key="user.id"
       >
-        {{ user.name }} - {{ user.age }}
-      </li>
-    </ul>
+        {{ user.name }} - {{ user.mobile }}
+      </div>
+    </div>
+    <div v-if="error">{{ error }}</div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import useHttpGet from '@/use/httpGet'
 
 export default {
   setup () {
-    const handleClick = () => console.log('Fui clicado')
-    const users = ref([])
-    users.value = [
-      { name: 'Julio', age: 18 },
-      { name: 'Marcell', age: 40 }
-    ]
+    
+    const { data, loading, error } = useHttpGet('/api/users')
 
-    return {
-      name: 'Guimarães',
-      handleClick,
-      users
-    }
+    return { data, loading, error }
   }
 }
 </script>
